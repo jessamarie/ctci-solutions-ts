@@ -1,0 +1,35 @@
+{
+  "name": "ctci",
+  "version": "1.0.0",
+  "description": "This repo was created using the exercises in Gale Laakman's CTCI.",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run compile",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register \"./**/*Test.js\"",
+    "pretestcov": "npm run compile",
+    "testcov": "babel-node ./node_modules/.bin/isparta cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register \"./**/*Test.js\"",
+    "posttestcov": "open ./coverage/lcov-report/index.html",
+    "precoverage": "npm run compile",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register \"./**/*Test.js\"",
+    "postcoverage": "open ./coverage/lcov-report/index.html",
+    "lint:ts": "./node_modules/.bin/tslint 'src/**/*.ts?(x)' --fix",
+    "lint:js": "./node_modules/.bin/eslint src --fix",
+    "precompile": "npm run lint:ts",
+    "compile": "./node_modules/typescript/bin/tsc",
+    "postcompile": "npm run lint:js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.7.2",
+    "isparta": "^4.0.0",
+    "istanbul": "^1.0.0-alpha.2",
+    "mocha": "^3.5.3",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2"
+  }
+}
