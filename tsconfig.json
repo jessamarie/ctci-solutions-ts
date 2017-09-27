@@ -14,5 +14,5 @@
         "node_modules",
         "**/*.spec.ts"
     ],
-    "compileOnSave": true
+    "compileOnSave": false
 }
