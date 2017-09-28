@@ -3,3 +3,4 @@ coverage
 package-lock.json
 src/1-arrays-and-strings
 src/**/*.js
+!src/**/*.Test.js
