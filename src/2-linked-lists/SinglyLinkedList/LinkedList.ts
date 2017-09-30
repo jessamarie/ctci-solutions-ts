@@ -1,4 +1,4 @@
-import { LinkedNode } from "./LinkedNode"
+import { LinkedNode } from './LinkedNode'
 
 /** Class representing a LinkedList */
 export class LinkedList<K, V> {
@@ -52,8 +52,8 @@ export class LinkedList<K, V> {
    *
    * @param {T} value T.
    */
-  public appendNode(value: V): void {
-    const end = new LinkedNode<K, V>(value)
+  public appendNode(value: V, key: K = null): void {
+    const end = new LinkedNode<K, V>(value, key)
 
     if (this.length === 0) {
       this.head = end
@@ -64,6 +64,22 @@ export class LinkedList<K, V> {
       }
       n.next = end
     }
+    this.length++
+  }
+
+  /** prependNode is a function that prepends
+   * an element to the head of the LinkedList
+   *
+   * @param {T} value T.
+   */
+  public prependNode(value: V, key: K = null): void {
+    const newHead = new LinkedNode<K, V>(value, key)
+
+    if (this.length !== 0) {
+      newHead.next = this.head
+    }
+
+    this.head = newHead
     this.length++
   }
 
@@ -180,7 +196,7 @@ export class LinkedList<K, V> {
   public toString(): string {
     let n = this.head
     let i = this.length - 1
-    let str = n ? `${n.value}` : ""
+    let str = n ? `${n.value}` : ''
     while (i > 0) {
       n = n.next
       str += `->${n.value}`
@@ -191,14 +207,14 @@ export class LinkedList<K, V> {
 
   /* Remove after finished */
   public debugHelper(p1: LinkedNode<K, V>, p2: LinkedNode<K, V>, list: LinkedList<K, V>): void {
-    let debugString = ""
+    let debugString = ''
     if (p1) {
-      const next = p1.next ? `${p1.next.value}` : "none"
+      const next = p1.next ? `${p1.next.value}` : 'none'
       debugString += `p1: ${p1.value} -- p1.next: ${next}`
     }
 
     if (p2) {
-      const next = p2.next ? `${p2.next.value}` : "none"
+      const next = p2.next ? `${p2.next.value}` : 'none'
       debugString += ` -- p2: ${p2.value} -- p2.next: ${next} `
     }
 

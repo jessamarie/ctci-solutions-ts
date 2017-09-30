@@ -32,6 +32,14 @@ export class LinkedNode<K, V> {
     return this._value
   }
 
+  /** set the value of a LinkedNode object.
+   *
+   * @return {V} A value
+   */
+  set value(value: V) {
+    this._value = value
+  }
+
   /** returns the LinkedNode this LinkedNode is pointing to
    *
    * @return {LinkedNode} A LinkedNode object

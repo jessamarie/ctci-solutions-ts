@@ -60,6 +60,47 @@ describe('LinkedList', function () {
     })
   })
 
+  describe('prepend one node', function () {
+    var newlist = new LinkedList()
+    it('prependNode exists', function () {
+      expect(newlist.prependNode).to.be.a('function')
+    })
+
+    it('add 1 to the list', function () {
+      newlist.prependNode(5)
+    })
+
+    it('list head is #1 and length is 1', function () {
+      expect(newlist.length).to.equal(1)
+      expect(newlist.head.value).to.equal(5)
+    })
+
+    it('list toString has 1 element', function () {
+      expect(newlist.toString()).to.equal('[5]')
+    })
+  })
+
+  describe('prepend more nodes', function () {
+    var newList = new LinkedList()
+    it('add 2,3,4,5 to the list', function () {
+      newList.prependNode(5)
+      newList.prependNode(4)
+      newList.prependNode(3)
+      newList.prependNode(2)
+      newList.prependNode(1)
+    })
+
+    it('length is 5 and head is 1', function () {
+      expect(newList.length).to.equal(5)
+      expect(newList.head.value).to.equal(1)
+      expect(newList.head.next.value).to.equal(2)
+    })
+
+    it('list toString has 5 elements', function () {
+      expect(newList.toString()).to.equal('[1->2->3->4->5]')
+    })
+  })
+
   describe('delete head node', function () {
     it('deleteNode exists', function () {
       expect(list.deleteNode).to.be.a('function')
