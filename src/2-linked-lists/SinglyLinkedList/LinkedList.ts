@@ -1,9 +1,9 @@
 import { LinkedNode } from "./LinkedNode"
 
 /** Class representing a LinkedList */
-export class LinkedList {
+export class LinkedList<T> {
 
-  private _head: LinkedNode
+  private _head: LinkedNode<T>
   private _length: number
 
   /**
@@ -17,23 +17,23 @@ export class LinkedList {
 
   /** returns the head of this LinkedList
    *
-   * @return {LinkedNode} A LinkedNode object
+   * @return {LinkedNode<T>} A LinkedNode object
    */
-  get head(): LinkedNode {
+  get head(): LinkedNode<T> {
     return this._head
   }
 
   /** sets the head of this LinkedList
    *
-   * @param {LinkedNode} head - A LinkedNode object
+   * @param {LinkedNode<T>} head - A LinkedNode object
    */
-  set head(head: LinkedNode) {
+  set head(head: LinkedNode<T>) {
     this._head = head
   }
 
   /** returns the length of this LinkedList
    *
-   * @return {LinkedNode} A LinkedNode object
+   * @return {LinkedNode<T>} A LinkedNode object
    */
   get length(): number {
     return this._length
@@ -41,7 +41,7 @@ export class LinkedList {
 
   /** sets the lenth of this LinkedList
    *
-   * @param {LinkedNode} head - A LinkedNode object
+   * @param {LinkedNode<T>} head - A LinkedNode object
    */
   set length(len: number) {
     this._length = len
@@ -50,10 +50,10 @@ export class LinkedList {
   /** appendNode is a function that appends
    * an element to the tail of a linkedlist
    *
-   * @param {number} data number.
+   * @param {T} value T.
    */
-  public appendNode(data: number): void {
-    const end = new LinkedNode(data)
+  public appendNode(value: T): void {
+    const end = new LinkedNode<T>(value)
 
     if (this.length === 0) {
       this.head = end
@@ -70,9 +70,9 @@ export class LinkedList {
   /** deleteNode is a function that looks for an element in
    * a LinkedList and removes it from the list.
    *
-   * @param {number} number - A number
+   * @param {T} value - A value to be stored in a node
    */
-  public deleteNode(data: number): void {
+  public deleteNode(value: T): void {
       let n = this.head
 
       /* if n is null then the list is empty */
@@ -80,7 +80,7 @@ export class LinkedList {
 
       /* if the head is the element to remove
        * move head to next element */
-      if (n.data === data) {
+      if (n.value === value) {
           this.head = this.head.next
           this.length--
           return
@@ -90,7 +90,7 @@ export class LinkedList {
        * just shift left if the element exists */
       while (n.next !== null) {
 
-        if (n.next.data === data) {
+        if (n.next.value === value) {
           n.next = n.next.next
           this.length--
           return
@@ -102,9 +102,9 @@ export class LinkedList {
   /** weave is a function that weaves a LinkedList
    * with itself using the 'runner' technique
    *
-   * @param {number} number - A number
+   * @return {LinkedList<T>} A new LinkedList
    */
-  public weave(): LinkedList {
+  public weave(): LinkedList<T> {
     let p1 = this.head.next /* p1 is the fast pointer */
     let p2 = this.head /* p2 is the slow pointer */
 
@@ -119,18 +119,18 @@ export class LinkedList {
 
     /* Start weaving */
 
-    const weavedList: LinkedList = new LinkedList()
+    const weavedList: LinkedList<T> = new LinkedList<T>()
 
     while (p1 !== null && p2 !== null ) {
       /* Take element pointed by p2 and move it after p1.
       Advance p1 after inserted element. */
 
       if (weavedList.length === this.length - 1) { /* The last element of odd lists */
-        weavedList.appendNode(p2.data)
+        weavedList.appendNode(p2.value)
         p2 = p2.next
       } else {
-        weavedList.appendNode(p1.data)
-        weavedList.appendNode(p2.data)
+        weavedList.appendNode(p1.value)
+        weavedList.appendNode(p2.value)
         p1 = p1.next
         p2 = p2.next
       }
@@ -143,10 +143,10 @@ export class LinkedList {
    * duplicates from an unsorted list. It keeps
    * the LAST duplicated element
    *
-   * @param {number} number - A number
+   * @return {LinkedList<T>} A new LinkedList
    */
-   public removeDups(): LinkedList { /* Exercise 2.1 - W/O storing */
-     const uniqueList = new LinkedList()
+   public removeDups(): LinkedList<T> { /* Exercise 2.1 - W/O storing */
+     const uniqueList = new LinkedList<T>()
 
      let p1 = this.head
 
@@ -155,7 +155,7 @@ export class LinkedList {
        let duped = false
 
        while (p2 !== null) {
-         if (p1.data === p2.data) {
+         if (p1.value === p2.value) {
            duped = true
          }
 
@@ -163,7 +163,7 @@ export class LinkedList {
        }
 
        if (!duped) {
-         uniqueList.appendNode(p1.data)
+         uniqueList.appendNode(p1.value)
        }
 
        p1 = p1.next
@@ -180,26 +180,26 @@ export class LinkedList {
   public toString(): string {
     let n = this.head
     let i = this.length - 1
-    let str = n ? `${n.data}` : ""
+    let str = n ? `${n.value}` : ""
     while (i > 0) {
       n = n.next
-      str += `->${n.data}`
+      str += `->${n.value}`
       i--
     }
     return `[${str}]`
   }
 
   /* Remove after finished */
-  public debugHelper(p1: LinkedNode, p2: LinkedNode, list: LinkedList): void {
+  public debugHelper(p1: LinkedNode<T>, p2: LinkedNode<T>, list: LinkedList<T>): void {
     let debugString = ""
     if (p1) {
-      const next = p1.next ? `${p1.next.data}` : "none"
-      debugString += `p1: ${p1.data} -- p1.next: ${next}`
+      const next = p1.next ? `${p1.next.value}` : "none"
+      debugString += `p1: ${p1.value} -- p1.next: ${next}`
     }
 
     if (p2) {
-      const next = p2.next ? `${p2.next.data}` : "none"
-      debugString += ` -- p2: ${p2.data} -- p2.next: ${next} `
+      const next = p2.next ? `${p2.next.value}` : "none"
+      debugString += ` -- p2: ${p2.value} -- p2.next: ${next} `
     }
 
     console.log(debugString + ` ${list.toString()}`)
