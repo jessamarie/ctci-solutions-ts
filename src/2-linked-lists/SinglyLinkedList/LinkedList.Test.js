@@ -34,7 +34,7 @@ describe('LinkedList', function () {
 
     it('list head is #1 and length is 1', function () {
       expect(list.length).to.equal(1)
-      expect(list.head.data).to.equal(1)
+      expect(list.head.value).to.equal(1)
     })
 
     it('list toString has 1 element', function () {
@@ -52,7 +52,7 @@ describe('LinkedList', function () {
 
     it('length is 5 and head next is 2', function () {
       expect(list.length).to.equal(5)
-      expect(list.head.next.data).to.equal(2)
+      expect(list.head.next.value).to.equal(2)
     })
 
     it('list toString has 5 elements', function () {
@@ -74,7 +74,7 @@ describe('LinkedList', function () {
     })
 
     it('has new head', function () {
-      expect(list.head.data).to.equal(2)
+      expect(list.head.value).to.equal(2)
     })
 
     it('toString has 4 nodes', function () {
@@ -92,7 +92,7 @@ describe('LinkedList', function () {
     })
 
     it('new tail is #4 has no next', function () {
-      expect(list.head.next.next.data).to.equal(4)
+      expect(list.head.next.next.value).to.equal(4)
       expect(list.head.next.next.next).to.be.a('null')
     })
 
@@ -111,7 +111,7 @@ describe('LinkedList', function () {
     })
 
     it('previous node has new next', function () {
-      expect(list.head.next.data).to.equal(4)
+      expect(list.head.next.value).to.equal(4)
     })
 
     it('toString has 2 elements', function () {
