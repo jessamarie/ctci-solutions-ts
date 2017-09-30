@@ -1,9 +1,9 @@
 import { LinkedNode } from "./LinkedNode"
 
 /** Class representing a LinkedList */
-export class LinkedList<T> {
+export class LinkedList<K, V> {
 
-  private _head: LinkedNode<T>
+  private _head: LinkedNode<K, V>
   private _length: number
 
   /**
@@ -17,23 +17,23 @@ export class LinkedList<T> {
 
   /** returns the head of this LinkedList
    *
-   * @return {LinkedNode<T>} A LinkedNode object
+   * @return {LinkedNode<K, V>} A LinkedNode object
    */
-  get head(): LinkedNode<T> {
+  get head(): LinkedNode<K, V> {
     return this._head
   }
 
   /** sets the head of this LinkedList
    *
-   * @param {LinkedNode<T>} head - A LinkedNode object
+   * @param {LinkedNode<K, V>} head - A LinkedNode object
    */
-  set head(head: LinkedNode<T>) {
+  set head(head: LinkedNode<K, V>) {
     this._head = head
   }
 
   /** returns the length of this LinkedList
    *
-   * @return {LinkedNode<T>} A LinkedNode object
+   * @return {LinkedNode<K, V>} A LinkedNode object
    */
   get length(): number {
     return this._length
@@ -41,7 +41,7 @@ export class LinkedList<T> {
 
   /** sets the lenth of this LinkedList
    *
-   * @param {LinkedNode<T>} head - A LinkedNode object
+   * @param {LinkedNode<K, V>} head - A LinkedNode object
    */
   set length(len: number) {
     this._length = len
@@ -52,8 +52,8 @@ export class LinkedList<T> {
    *
    * @param {T} value T.
    */
-  public appendNode(value: T): void {
-    const end = new LinkedNode<T>(value)
+  public appendNode(value: V): void {
+    const end = new LinkedNode<K, V>(value)
 
     if (this.length === 0) {
       this.head = end
@@ -72,7 +72,7 @@ export class LinkedList<T> {
    *
    * @param {T} value - A value to be stored in a node
    */
-  public deleteNode(value: T): void {
+  public deleteNode(value: V): void {
       let n = this.head
 
       /* if n is null then the list is empty */
@@ -102,9 +102,9 @@ export class LinkedList<T> {
   /** weave is a function that weaves a LinkedList
    * with itself using the 'runner' technique
    *
-   * @return {LinkedList<T>} A new LinkedList
+   * @return {LinkedList<K, V>} A new LinkedList
    */
-  public weave(): LinkedList<T> {
+  public weave(): LinkedList<K, V> {
     let p1 = this.head.next /* p1 is the fast pointer */
     let p2 = this.head /* p2 is the slow pointer */
 
@@ -119,7 +119,7 @@ export class LinkedList<T> {
 
     /* Start weaving */
 
-    const weavedList: LinkedList<T> = new LinkedList<T>()
+    const weavedList: LinkedList<K, V> = new LinkedList<K, V>()
 
     while (p1 !== null && p2 !== null ) {
       /* Take element pointed by p2 and move it after p1.
@@ -143,10 +143,10 @@ export class LinkedList<T> {
    * duplicates from an unsorted list. It keeps
    * the LAST duplicated element
    *
-   * @return {LinkedList<T>} A new LinkedList
+   * @return {LinkedList<K, V>} A new LinkedList
    */
-   public removeDups(): LinkedList<T> { /* Exercise 2.1 - W/O storing */
-     const uniqueList = new LinkedList<T>()
+   public removeDups(): LinkedList<K, V> { /* Exercise 2.1 - W/O storing */
+     const uniqueList = new LinkedList<K, V>()
 
      let p1 = this.head
 
@@ -190,7 +190,7 @@ export class LinkedList<T> {
   }
 
   /* Remove after finished */
-  public debugHelper(p1: LinkedNode<T>, p2: LinkedNode<T>, list: LinkedList<T>): void {
+  public debugHelper(p1: LinkedNode<K, V>, p2: LinkedNode<K, V>, list: LinkedList<K, V>): void {
     let debugString = ""
     if (p1) {
       const next = p1.next ? `${p1.next.value}` : "none"

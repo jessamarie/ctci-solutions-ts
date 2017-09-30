@@ -18,36 +18,27 @@
 // console.log("Hi")
 
 /** Class representing a HashTable */
-import {LinkedList} from "./../../2-linked-lists/SinglyLinkedList/LinkedList"
+import {LinkedNode} from "./../../2-linked-lists/SinglyLinkedList/LinkedNode"
 
-class HashTable {
+export class HashTable {
 
-  public node = new class {
-    private key: string
-    private value: string
-    private next: Node
-    constructor(key: string, value: string) {
-      this.key = key
-      this.value = value
-    }
-  }(key, value);
-  private _lists: LinkedList[] /* Array of linked lists */
+  private _list: Array<LinkedNode<number, string>> /* Array of linked lists */
 
   /**
    * Represents a HashTable.
    * @constructor
    * @param {number} data - the node's content
    */
-  constructor(data: number) {
-      this._lists = new Array<LinkedList>
+  constructor() {
+      this._list = new Array<LinkedNode<number, string>>()
   }
 
   /** returns the lists in a HashTable object.
    *
    * @return {LinkedNode} A LinkedNode object
    */
-  get lists(): LinkedList[] {
-    return this._lists
+  get list(): Array<LinkedNode<number, string>> {
+    return this._list
   }
 
   /**
@@ -57,10 +48,3 @@ class HashTable {
    */
 
 }
-
-namespace HashTable {
-    export class Node {
-    }
-}
-
-export {HashTable}

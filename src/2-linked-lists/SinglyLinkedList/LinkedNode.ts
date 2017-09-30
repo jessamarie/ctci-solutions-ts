@@ -1,8 +1,8 @@
 /** Class representing a LinkedNode */
-export class LinkedNode<T> {
-  private _key: T
-  private _value: T
-  private _next: LinkedNode<T>
+export class LinkedNode<K, V> {
+  private _key: K
+  private _value: V
+  private _next: LinkedNode<K, V>
 
   /**
    * Represents a LinkedNode.
@@ -10,7 +10,7 @@ export class LinkedNode<T> {
    * @param {T} value - the node's content
    * @param {T} key - the node's key (optional)
    */
-  constructor(value: T, key: T = null) {
+  constructor(value: V, key: K = null) {
       this._value = value
       this._next = null
       this._key = key
@@ -18,17 +18,17 @@ export class LinkedNode<T> {
 
   /** returns the key of a LinkedNode object.
    *
-   * @return {T} A key
+   * @return {K} A key
    */
-  get key(): T {
+  get key(): K {
     return this._key
   }
 
   /** returns the value of a LinkedNode object.
    *
-   * @return {T} A value
+   * @return {V} A value
    */
-  get value(): T {
+  get value(): V {
     return this._value
   }
 
@@ -36,7 +36,7 @@ export class LinkedNode<T> {
    *
    * @return {LinkedNode} A LinkedNode object
    */
-  get next(): LinkedNode<T> {
+  get next(): LinkedNode<K, V> {
     return this._next
   }
 
@@ -44,7 +44,7 @@ export class LinkedNode<T> {
    *
    * @param {LinkedNode} next - A LinkedNode object
    */
-  set next(next: LinkedNode<T>) {
+  set next(next: LinkedNode<K, V>) {
     this._next = next
   }
 }
