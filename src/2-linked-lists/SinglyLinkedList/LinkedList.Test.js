@@ -215,4 +215,26 @@ describe('LinkedList', function () {
       expect(weavedList.toString()).to.equal('[1->2->3->4->5->6->7]')
     })
   })
+
+  describe('remove duplicates', function () {
+    let dupsList = new LinkedList()
+
+    it('small list', function () {
+      dupsList.appendNode(1)
+      dupsList.appendNode(2)
+      dupsList.appendNode(4)
+      dupsList.appendNode(2)
+      let uniqueList = dupsList.removeDups()
+      expect(uniqueList.toString()).to.equal('[1->4->2]')
+    })
+
+    it('large list', function () {
+      dupsList.appendNode(1)
+      dupsList.appendNode(2)
+      dupsList.appendNode(1)
+      dupsList.appendNode(4)
+      let uniqueList = dupsList.removeDups()
+      expect(uniqueList.toString()).to.equal('[2->1->4]')
+    })
+  })
 })

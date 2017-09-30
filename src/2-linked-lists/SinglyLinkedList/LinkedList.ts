@@ -117,10 +117,6 @@ export class LinkedList {
     p1 = this.head /* Move p1 back to the head. */
     p2 = p2.next /* Advance p2 - this is the first element to weave */
 
-    // if (p2 && p2.next && (this.length % 2 !== 0)) {
-    //   p2 = p2.next
-    // }
-
     /* Start weaving */
 
     const weavedList: LinkedList = new LinkedList()
@@ -143,6 +139,39 @@ export class LinkedList {
     return weavedList
   }
 
+  /** removeDups is a function that removes
+   * duplicates from an unsorted list. It keeps
+   * the LAST duplicated element
+   *
+   * @param {number} number - A number
+   */
+   public removeDups(): LinkedList { /* Exercise 2.1 - W/O storing */
+     const uniqueList = new LinkedList()
+
+     let p1 = this.head
+
+     while (p1 !== null) {
+       let p2 = p1.next /* p2 iterates over rest of the list */
+       let duped = false
+
+       while (p2 !== null) {
+         if (p1.data === p2.data) {
+           duped = true
+         }
+
+         p2 = p2.next
+       }
+
+       if (!duped) {
+         uniqueList.appendNode(p1.data)
+       }
+
+       p1 = p1.next
+     }
+
+     return uniqueList
+   }
+
   /** toString returns a string representation of a
    * LinkedList
    *
@@ -158,6 +187,22 @@ export class LinkedList {
       i--
     }
     return `[${str}]`
+  }
+
+  /* Remove after finished */
+  public debugHelper(p1: LinkedNode, p2: LinkedNode, list: LinkedList): void {
+    let debugString = ""
+    if (p1) {
+      const next = p1.next ? `${p1.next.data}` : "none"
+      debugString += `p1: ${p1.data} -- p1.next: ${next}`
+    }
+
+    if (p2) {
+      const next = p2.next ? `${p2.next.data}` : "none"
+      debugString += ` -- p2: ${p2.data} -- p2.next: ${next} `
+    }
+
+    console.log(debugString + ` ${list.toString()}`)
   }
 
 } // end LinkedList
