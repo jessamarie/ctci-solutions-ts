@@ -137,4 +137,82 @@ describe('LinkedList', function () {
       expect(list.toString()).to.equal('[]')
     })
   })
+
+  describe('weave even list', function () {
+    let unweavedList = new LinkedList()
+    let weavedList = new LinkedList()
+
+    it('create unweavedList list', function () {
+      unweavedList.appendNode(1)
+      unweavedList.appendNode(3)
+      unweavedList.appendNode(5)
+      unweavedList.appendNode(2)
+      unweavedList.appendNode(4)
+      unweavedList.appendNode(6)
+    })
+
+    it('toString before weave', function () {
+      expect(unweavedList.toString()).to.equal('[1->3->5->2->4->6]')
+    })
+
+    it('weave nodes', function () {
+      weavedList = unweavedList.weave()
+    })
+
+    it('toString after weave should be rearranged', function () {
+      expect(weavedList.toString()).to.equal('[1->2->3->4->5->6]')
+    })
+  })
+
+  describe('weave odd list', function () {
+    let unweavedList = new LinkedList()
+    let weavedList = new LinkedList()
+
+    it('create unweavedList list', function () {
+      unweavedList.appendNode(1)
+      unweavedList.appendNode(3)
+      unweavedList.appendNode(2)
+      unweavedList.appendNode(4)
+      unweavedList.appendNode(5)
+    })
+
+    it('toString before weave', function () {
+      expect(unweavedList.toString()).to.equal('[1->3->2->4->5]')
+    })
+
+    it('weave nodes', function () {
+      weavedList = unweavedList.weave()
+    })
+
+    it('toString after weave should be the same', function () {
+      expect(weavedList.toString()).to.equal('[1->2->3->4->5]')
+    })
+  })
+
+  describe('weave a larger odd list', function () {
+    let unweavedList = new LinkedList()
+    let weavedList = new LinkedList()
+
+    it('create unweavedList list', function () {
+      unweavedList.appendNode(1)
+      unweavedList.appendNode(3)
+      unweavedList.appendNode(5)
+      unweavedList.appendNode(2)
+      unweavedList.appendNode(4)
+      unweavedList.appendNode(6)
+      unweavedList.appendNode(7)
+    })
+
+    it('toString before weave', function () {
+      expect(unweavedList.toString()).to.equal('[1->3->5->2->4->6->7]')
+    })
+
+    it('weave nodes', function () {
+      weavedList = unweavedList.weave()
+    })
+
+    it('toString after weave should be rearranged', function () {
+      expect(weavedList.toString()).to.equal('[1->2->3->4->5->6->7]')
+    })
+  })
 })

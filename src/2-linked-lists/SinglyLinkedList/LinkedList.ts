@@ -99,6 +99,50 @@ export class LinkedList {
      }
   }
 
+  /** weave is a function that weaves a LinkedList
+   * with itself using the 'runner' technique
+   *
+   * @param {number} number - A number
+   */
+  public weave(): LinkedList {
+    let p1 = this.head.next /* p1 is the fast pointer */
+    let p2 = this.head /* p2 is the slow pointer */
+
+   /* move p1 by 2 and p2 by 1 until p1 reaches the end of the list */
+    while (p1.next !== null && p1.next.next !== null)  {
+      p1 = p1.next.next
+      p2 = p2.next
+    }
+
+    p1 = this.head /* Move p1 back to the head. */
+    p2 = p2.next /* Advance p2 - this is the first element to weave */
+
+    // if (p2 && p2.next && (this.length % 2 !== 0)) {
+    //   p2 = p2.next
+    // }
+
+    /* Start weaving */
+
+    const weavedList: LinkedList = new LinkedList()
+
+    while (p1 !== null && p2 !== null ) {
+      /* Take element pointed by p2 and move it after p1.
+      Advance p1 after inserted element. */
+
+      if (weavedList.length === this.length - 1) { /* The last element of odd lists */
+        weavedList.appendNode(p2.data)
+        p2 = p2.next
+      } else {
+        weavedList.appendNode(p1.data)
+        weavedList.appendNode(p2.data)
+        p1 = p1.next
+        p2 = p2.next
+      }
+    }
+
+    return weavedList
+  }
+
   /** toString returns a string representation of a
    * LinkedList
    *
