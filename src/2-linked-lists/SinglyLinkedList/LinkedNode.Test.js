@@ -25,6 +25,10 @@ describe('LinkedNode', function () {
     it('has a next property', function () {
       expect(testNode.next).to.be.a('null')
     })
+
+    it('has a toString representation', function () {
+      expect(testNode.toString()).to.equal('1')
+    })
   })
 
   context('accessors', function () {
@@ -48,14 +52,18 @@ describe('LinkedNode', function () {
   })
 
   context('node can have a key', function () {
-    var node = new LinkedNode(2, 'string')
+    var node = new LinkedNode(2, 'cool')
 
     it('has a key', function () {
       expect(node.key).to.equal(2)
     })
 
     it('has a value', function () {
-      expect(node.value).to.equal('string')
+      expect(node.value).to.equal('cool')
+    })
+
+    it('toString representation', function () {
+      expect(node.toString()).to.equal('<2,cool>')
     })
   })
 })

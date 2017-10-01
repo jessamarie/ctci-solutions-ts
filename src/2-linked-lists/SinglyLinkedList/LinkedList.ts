@@ -218,10 +218,10 @@ export class LinkedList<K, V> {
   public toString(): string {
     let n = this.head
     let i = this.length - 1
-    let str = n ? `${n.value}` : ''
+    let str = n ? `${n.toString()}` : ''
     while (i > 0) {
       n = n.next
-      str += `->${n.value}`
+      str += `->${n.toString()}`
       i--
     }
     return `[${str}]`

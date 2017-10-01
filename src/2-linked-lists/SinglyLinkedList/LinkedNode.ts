@@ -64,4 +64,16 @@ export class LinkedNode<K, V> {
   set next(next: LinkedNode<K, V>) {
     this._next = next
   }
+
+  /** toString returns a string representation of a LinkedNode
+   *
+   * @return {string} A string object
+   */
+   public toString(): string {
+     if (this.key) {
+       return `<${this.key},${this.value}>`
+     }
+
+     return `${this.value}`
+   }
 }

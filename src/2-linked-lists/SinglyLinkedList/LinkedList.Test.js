@@ -288,14 +288,14 @@ describe('LinkedList', function () {
       replaceList.appendNode(3, 3)
       replaceList.appendNode(4, 4)
       replaceList.replace(1, 2)
-      expect(replaceList.toString()).to.equal('[2->2->3->4]')
+      expect(replaceList.toString()).to.equal('[<1,2>-><2,2>-><3,3>-><4,4>]')
     })
 
     it('more', function () {
       replaceList.replace(2, 3)
       replaceList.replace(3, 4)
       replaceList.replace(4, 5)
-      expect(replaceList.toString()).to.equal('[2->3->4->5]')
+      expect(replaceList.toString()).to.equal('[<1,2>-><2,3>-><3,4>-><4,5>]')
     })
   })
 })
