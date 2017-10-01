@@ -10,7 +10,8 @@
       "indent": [true, "spaces", 2],
       "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
       "no-console": [false, "log", "error"],
-      "max-classes-per-file": [true, 5]
+      "max-classes-per-file": [true, 5],
+      "quotemark": [true, "single"]
     },
     "rulesDirectory": []
 }
