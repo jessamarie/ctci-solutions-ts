@@ -7,15 +7,16 @@ export class HashTable {
 
   /* The hash table, represented as an array of linked tables. */
   private _table: Array<LinkedList<string, string>>
-  /* The number of k,v pairs in the table */
-  private _count: number
+  private _count: number /* The number of k,v pairs in the table */
+  private _size: number /* The number of slots in the table */
 
   /**
    * Represents a HashTable.
    * @constructor
-   * @param {number} data - the node's content
+   * @param {number} size - the size of the table
    */
-  constructor() {
+  constructor(size: number = 20) {
+      this._size = size
       this._table = new Array<LinkedList<string, string>>()
       this._count = 0
   }
@@ -26,6 +27,14 @@ export class HashTable {
    */
   get table(): Array<LinkedList<string, string>> {
     return this._table
+  }
+
+  /** returns the table size
+   *
+   * @return {number} A number
+   */
+  get size(): number {
+    return this._size
   }
 
   /** returns the count
@@ -54,19 +63,12 @@ export class HashTable {
    public insert(key: string, value: string) {
 
      const hash = this.hash(key) /* 1. compute the key's hash code */
-     const index = Math.floor(hash % (this.table.length + 1)) /* 2. map the hash code to an index in the array */
-
+     const index = Math.floor(hash % this.size) /* 2. map the hash code to an index in the array */
      /* 3. At this index, there is a linked list of keys and values */
      const list: LinkedList<string, string> = this.table[index] || new LinkedList<string, string>()
 
      /* store the key and value in this index */
-     const node = list.replace(key, value)
-
-     /* If the key wasn't found in the list, prepend a new node to the list */
-     if (node === null) {
-       list.prependNode(key, value)
-       this.count++
-     }
+     list.prependNode(key, value) // fastest
 
      this.table[index] = list
    }
@@ -88,14 +90,24 @@ export class HashTable {
    * hash is a modular hashing function that computes a hash code
    * of a string.
    *
-   * @param {number} key - the key
+   * @param {string} key - the key
    */
    public hash(key: string): number {
 
-     const hash = key.split('').reduce( (acc, value) => {
-       return (31 * acc + (value.charCodeAt(0))) % (this.count + 1)
+     /* A hashing function should be designed to be a unique as possible
+      * as to avoid collisions
+      *
+      * Possible formulas, for each i in key:
+      * * sum = sum + ord(i) * i
+      * * product = R * product + ord(i) * i, where R is a small prime number
+      *
+      * multiplying by i helps to avoid anagrams having the same hash
+     */
+
+     const hash = key.split('').reduce( (acc, value, i) => {
+       return (31 * acc + Math.abs(value.charCodeAt(0)) * i)
      }, 1)
 
-     return Math.abs(hash)
+     return hash
    }
 }

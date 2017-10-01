@@ -35,7 +35,7 @@ describe('HashTable', function () {
     })
   })
 
-  context('insert same keys', function () {
+  context('insert nodes with same keys', function () {
     var table = new HashTable()
 
     it('insert items', function () {
@@ -45,11 +45,11 @@ describe('HashTable', function () {
       table.insert('1', 'got')
     })
 
-    it('toString has an item', function () {
-      // no way to test hash function right now
-      // test that the hashtable at least has the items
-      // that it should
+    it('All items exist in table', function () {
       expect(table.toString()).to.have.string('<1,got>')
+      expect(table.toString()).to.have.string('<1,string>')
+      expect(table.toString()).to.have.string('<1,you>')
+      expect(table.toString()).to.have.string('<1,cool>')
     })
   })
 
@@ -57,18 +57,17 @@ describe('HashTable', function () {
     var table = new HashTable()
 
     it('insert items', function () {
-      table.insert('2', 'cool')
-      table.insert('2', 'string')
-      table.insert('1', 'you')
-      table.insert('1', 'got')
+      table.insert('two', 'cool')
+      table.insert('two', 'string')
+      table.insert('one', 'you')
+      table.insert('one', 'got')
     })
 
-    it('toString has the right item', function () {
-      // no way to test hash function right now
-      // test that the hashtable at least has the items
-      // that it should
-      expect(table.toString()).to.have.string('<2,string>')
-      expect(table.toString()).to.have.string('<1,got>')
+    it('All items exist in table', function () {
+      expect(table.toString()).to.have.string('<one,got>')
+      expect(table.toString()).to.have.string('<two,string>')
+      expect(table.toString()).to.have.string('<one,you>')
+      expect(table.toString()).to.have.string('<two,cool>')
     })
   })
 })
