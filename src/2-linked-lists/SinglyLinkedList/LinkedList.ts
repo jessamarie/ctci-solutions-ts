@@ -137,6 +137,24 @@ export class LinkedList<K, V> {
       return null
   }
 
+  /** find is a function that returns the first element that contains
+   * the given key
+   * @param {K} key - An array which contains a Key,Value pair or just a value
+   */
+
+  public find(key: K): LinkedNode<K, V> {
+
+    let n = this.head
+    while (n !== null) {
+      if (n.key === key) {
+        return n
+      }
+      n = n.next
+    }
+
+    return null
+  }
+
   /** weave is a function that weaves a LinkedList
    * with itself using the 'runner' technique
    *

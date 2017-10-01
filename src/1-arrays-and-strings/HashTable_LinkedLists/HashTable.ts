@@ -56,14 +56,17 @@ export class HashTable {
   /**
    * insert is a function that puts a new key, value
    * pair into a hash table
+   *
+   * It places the node at the list index = hash(key) % table_size
+   *
    * @constructor
    * @param {string} key - the key
    * @param {string} value - the node's content
    */
    public insert(key: string, value: string) {
 
-     const hash = this.hash(key) /* 1. compute the key's hash code */
-     const index = Math.floor(hash % this.size) /* 2. map the hash code to an index in the array */
+     /* 1-2. compute the key's hash code and map it to an index in the array */
+     const index = this.hash(key) % this.size
      /* 3. At this index, there is a linked list of keys and values */
      const list: LinkedList<string, string> = this.table[index] || new LinkedList<string, string>()
 
@@ -74,8 +77,33 @@ export class HashTable {
    }
 
    /**
+    * insert is a function that puts a new key, value
+    * pair into a hash table
+    *
+    * It places the node at the list index = hash(key) % table_size
+    *
+    * @constructor
+    * @param {string} key - the key
+    */
+    public search(key: string) {
+
+      /* Get the index */
+      const index = this.hash(key) % this.size
+
+      const list: LinkedList<string, string> = this.table[index]
+
+      if (!list) { return } /* element doesn't exist */
+
+      const node = list.find(key)
+      /* return element with key */
+      return node
+    }
+
+   /**
     * toString function that returns a string rep of
     * the table
+    *
+    * @return {string} A string
     */
     public toString(): string {
       let str = ''

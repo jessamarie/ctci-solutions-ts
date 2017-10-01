@@ -298,4 +298,27 @@ describe('LinkedList', function () {
       expect(replaceList.toString()).to.equal('[<1,2>-><2,3>-><3,4>-><4,5>]')
     })
   })
+
+  context('find', function () {
+    let findlist = new LinkedList()
+
+    it('add nodes', function () {
+      findlist.appendNode(1, 1)
+      findlist.appendNode(2, 2)
+      findlist.appendNode(3, 3)
+      findlist.appendNode(4, 4)
+      let node = findlist.find(1)
+    })
+
+    it('node found', function () {
+      let node = findlist.find(1)
+      expect(node.key).to.equal(1)
+      expect(node.value).to.equal(1)
+    })
+
+    it('nonexistant node null', function () {
+      let node = findlist.find(10)
+      expect(node).to.be.a('null')
+    })
+  })
 })

@@ -70,4 +70,25 @@ describe('HashTable', function () {
       expect(table.toString()).to.have.string('<two,cool>')
     })
   })
+  context('find a node', function () {
+    var table = new HashTable()
+
+    it('insert items', function () {
+      table.insert('one', 'cool')
+      table.insert('two', 'string')
+      table.insert('three', 'you')
+      table.insert('one', 'got')
+    })
+
+    it('find node with key "two"', function () {
+      var node = table.search('two')
+      expect(node.key).to.equal('two')
+      expect(node.value).to.equal('string')
+    })
+
+    it('find node with key "one"', function () {
+      var node = table.search('one')
+      expect(node.key).to.equal('one')
+    })
+  })
 })
