@@ -1,28 +1,14 @@
-
-// A hash table is a data structure that maps keys to values
-// for highly efficient lookup
-
-// Implementation #1
-// use an array of linked lists and a hash code function
-
-// To insert a key and value:
-// 1. Compute the key's hash code
-// 2. map the hash code to an index in the array
-  // hash(key) % array_length
-  // 2 diff hashcodes could map to the same index
-// 3. At this index, there is a linked list of keys and values
-    // store the key and value in this index.
-    // linked list best bc of collisions
-    // you could have 2diff keys w/ same hashcode
-    // or 2 diff hash codes that map to the same index
-// console.log("Hi")
-
-/** Class representing a HashTable */
-import {LinkedNode} from "./../../2-linked-lists/SinglyLinkedList/LinkedNode"
+/** Class representing a HashTable using an array of linked lists
+ *  and hash code function
+ */
+import {LinkedList} from './../../2-linked-lists/SinglyLinkedList/LinkedList'
 
 export class HashTable {
 
-  private _list: Array<LinkedNode<number, string>> /* Array of linked lists */
+  /* The hash table, represented as an array of linked tables. */
+  private _table: Array<LinkedList<string, string>>
+  /* The number of k,v pairs in the table */
+  private _count: number
 
   /**
    * Represents a HashTable.
@@ -30,21 +16,86 @@ export class HashTable {
    * @param {number} data - the node's content
    */
   constructor() {
-      this._list = new Array<LinkedNode<number, string>>()
+      this._table = new Array<LinkedList<string, string>>()
+      this._count = 0
   }
 
-  /** returns the lists in a HashTable object.
+  /** returns the HashTable
    *
-   * @return {LinkedNode} A LinkedNode object
+   * @return {LinkedList} A LinkedList object
    */
-  get list(): Array<LinkedNode<number, string>> {
-    return this._list
+  get table(): Array<LinkedList<string, string>> {
+    return this._table
+  }
+
+  /** returns the count
+   *
+   * @return {LinkedList} A LinkedList object
+   */
+  get count(): number {
+    return this._count
+  }
+
+  /** sets the count
+   *
+   * @param {LinkedList} len LinkedList object
+   */
+  set count(count: number) {
+    this._count = count
   }
 
   /**
-   * A function that computes a hash code of a list
+   * insert is a function that puts a new key, value
+   * pair into a hash table
    * @constructor
-   * @param {number} data - the node's content
+   * @param {string} key - the key
+   * @param {string} value - the node's content
    */
+   public insert(key: string, value: string) {
 
+     const hash = this.hash(key) /* 1. compute the key's hash code */
+     const index = Math.floor(hash % (this.table.length + 1)) /* 2. map the hash code to an index in the array */
+
+     /* 3. At this index, there is a linked list of keys and values */
+     const list: LinkedList<string, string> = this.table[index] || new LinkedList<string, string>()
+
+     /* store the key and value in this index */
+     const node = list.replace(key, value)
+
+     /* If the key wasn't found in the list, prepend a new node to the list */
+     if (node === null) {
+       list.prependNode(key, value)
+       this.count++
+     }
+
+     this.table[index] = list
+   }
+
+   /**
+    * toString function that returns a string rep of
+    * the table
+    */
+    public toString(): string {
+      let str = ''
+
+      this.table.forEach( (list) => {
+        str += list.toString() + '\n'
+      })
+      return str
+    }
+
+  /**
+   * hash is a modular hashing function that computes a hash code
+   * of a string.
+   *
+   * @param {number} key - the key
+   */
+   public hash(key: string): number {
+
+     const hash = key.split('').reduce( (acc, value) => {
+       return (31 * acc + (value.charCodeAt(0))) % (this.count + 1)
+     }, 1)
+
+     return Math.abs(hash)
+   }
 }
