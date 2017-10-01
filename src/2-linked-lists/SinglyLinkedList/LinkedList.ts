@@ -47,13 +47,14 @@ export class LinkedList<K, V> {
     this._length = len
   }
 
-  /** appendNode is a function that appends
-   * an element to the tail of a linkedlist
+  /** appendNode is a function that appends a node to the
+   * tail of a LinkedList
    *
-   * @param {T} value T.
+   * @param {any[]} args - An array which contains a Key,Value pair or just Value
    */
-  public appendNode(value: V, key: K = null): void {
-    const end = new LinkedNode<K, V>(value, key)
+
+  public appendNode(...args: any[]): void {
+    const end = this.getNode(args)
 
     if (this.length === 0) {
       this.head = end
@@ -72,8 +73,8 @@ export class LinkedList<K, V> {
    *
    * @param {T} value T.
    */
-  public prependNode(value: V, key: K = null): void {
-    const newHead = new LinkedNode<K, V>(value, key)
+  public prependNode(...args: any[]): void {
+    const newHead = this.getNode(args)
 
     if (this.length !== 0) {
       newHead.next = this.head
@@ -113,6 +114,27 @@ export class LinkedList<K, V> {
         }
         n = n.next
      }
+  }
+
+  /** replace is a function that replaces a
+   * node at a key with a given value
+   *
+   * @param {T} value - The key of the node to replace
+   * @param {T} value - A value to be stored in a node
+   * @return {LinkedNode} - the node that was changed
+   */
+  public replace(key: K, value: V): LinkedNode<K, V> {
+      let n = this.head
+
+      while (n !== null) {
+        if (n.key === key) {
+            n.value = value
+            return n
+        }
+        n = n.next
+      }
+
+      return null
   }
 
   /** weave is a function that weaves a LinkedList
@@ -205,20 +227,21 @@ export class LinkedList<K, V> {
     return `[${str}]`
   }
 
-  /* Remove after finished */
-  public debugHelper(p1: LinkedNode<K, V>, p2: LinkedNode<K, V>, list: LinkedList<K, V>): void {
-    let debugString = ''
-    if (p1) {
-      const next = p1.next ? `${p1.next.value}` : 'none'
-      debugString += `p1: ${p1.value} -- p1.next: ${next}`
-    }
+  /** getNode is helper function to destructure
+   * an argument list and create a node
+   * @param {any[]} args The argument list
+   * @return {LinkedNode<K, V>} A new LinkedNode
+   */
+  private getNode(args: any[]): LinkedNode<K, V> {
+    let node
 
-    if (p2) {
-      const next = p2.next ? `${p2.next.value}` : 'none'
-      debugString += ` -- p2: ${p2.value} -- p2.next: ${next} `
+    if (args.length === 2) {
+      const [ key, value ] = args
+      node = new LinkedNode<K, V>(key, value)
+    } else if (args.length === 1) {
+      const [ value ] = args
+      node = new LinkedNode<K, V>(value)
     }
-
-    console.log(debugString + ` ${list.toString()}`)
+    return node
   }
-
 } // end LinkedList

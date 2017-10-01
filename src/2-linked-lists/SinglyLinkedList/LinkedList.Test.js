@@ -278,4 +278,24 @@ describe('LinkedList', function () {
       expect(uniqueList.toString()).to.equal('[2->1->4]')
     })
   })
+
+  describe('replace nodes', function () {
+    let replaceList = new LinkedList()
+
+    it('one', function () {
+      replaceList.appendNode(1, 1)
+      replaceList.appendNode(2, 2)
+      replaceList.appendNode(3, 3)
+      replaceList.appendNode(4, 4)
+      replaceList.replace(1, 2)
+      expect(replaceList.toString()).to.equal('[2->2->3->4]')
+    })
+
+    it('more', function () {
+      replaceList.replace(2, 3)
+      replaceList.replace(3, 4)
+      replaceList.replace(4, 5)
+      expect(replaceList.toString()).to.equal('[2->3->4->5]')
+    })
+  })
 })

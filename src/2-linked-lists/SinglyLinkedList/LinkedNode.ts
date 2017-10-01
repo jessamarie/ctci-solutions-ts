@@ -7,13 +7,22 @@ export class LinkedNode<K, V> {
   /**
    * Represents a LinkedNode.
    * @constructor
-   * @param {T} value - the node's content
-   * @param {T} key - the node's key (optional)
+   * @param {K} [key] - the node's key
+   * @param {V} value - the node's content
    */
-  constructor(value: V, key: K = null) {
-      this._value = value
+  constructor(...args: any[]) {
+      if (args.length === 2) {
+        const [ key, value ] = args
+        this._value = value
+        this._key = key
+      } else if (args.length === 1) {
+        const [ value ] = args
+        this._value = value
+        this._key = null
+    } else {
+      throw new Error('invalid arguments: (key, value) or (value) only')
+    }
       this._next = null
-      this._key = key
   }
 
   /** returns the key of a LinkedNode object.
@@ -34,7 +43,7 @@ export class LinkedNode<K, V> {
 
   /** set the value of a LinkedNode object.
    *
-   * @return {V} A value
+   * @param {V} value A value
    */
   set value(value: V) {
     this._value = value

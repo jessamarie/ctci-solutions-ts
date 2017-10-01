@@ -48,7 +48,7 @@ describe('LinkedNode', function () {
   })
 
   context('node can have a key', function () {
-    var node = new LinkedNode('string', 2)
+    var node = new LinkedNode(2, 'string')
 
     it('has a key', function () {
       expect(node.key).to.equal(2)
